@@ -1,4 +1,4 @@
-package com.testautomation.mesaj.Task;
+package task;
 
 
 import io.restassured.http.ContentType;
