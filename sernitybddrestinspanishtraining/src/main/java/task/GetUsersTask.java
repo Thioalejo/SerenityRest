@@ -9,16 +9,16 @@ import net.serenitybdd.screenplay.rest.interactions.Get;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class GetUsers implements Task {
+public class GetUsersTask implements Task {
 
     private final int page;
 
-    public GetUsers(int page)
+    public GetUsersTask(int page)
     {
         this.page = page;
     }
     public static Performable fromPage(int page){
-        return instrumented(GetUsers.class, page);
+        return instrumented(GetUsersTask.class, page);
     }
 
     @Override
