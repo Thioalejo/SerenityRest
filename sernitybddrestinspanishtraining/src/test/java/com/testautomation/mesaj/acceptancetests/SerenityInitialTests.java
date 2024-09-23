@@ -1,5 +1,6 @@
 package com.testautomation.mesaj.acceptancetests;
 
+import com.testautomation.mesaj.Task.GetUsers;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
@@ -20,7 +21,7 @@ public class SerenityInitialTests {
         Actor alejandro = Actor.named("Alejandro the QA")
                 .whoCan(CallAnApi.at(URL_BASE));
 
-        alejandro.attemptsTo(Get.resource("/users?page=2"));
+        alejandro.attemptsTo(GetUsers.fromPage(3));
 
         assertThat(SerenityRest.lastResponse().statusCode()).isEqualTo(200);
     }
