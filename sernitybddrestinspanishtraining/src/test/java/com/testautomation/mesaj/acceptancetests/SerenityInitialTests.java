@@ -1,6 +1,7 @@
 package com.testautomation.mesaj.acceptancetests;
 
 import models.users.Datum;
+import models.users.Register;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import questions.GetUsersQuestion;
 import questions.ResponseCode;
 import task.GetUsersTask;
+import task.RegisterUserTaskModels;
+import task.RegisterUserTaskString;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -57,4 +60,41 @@ public class SerenityInitialTests {
 
         assertThat(SerenityRest.lastResponse().statusCode()).isEqualTo(400);
     }
+
+    @Test
+    public void  registerUserTestWithString(){
+        Actor alejandro = Actor.named("Alejandro the QA")
+                .whoCan(CallAnApi.at(URL_BASE));
+
+        //Example with String
+        String registerUserInfo = "{\n" +
+                "    \"name\":\"morpheus\",\n" +
+                "    \"Job\":\"Leader\",\n" +
+                "    \"email\":\"tobias.funke@reqres.in\",\n" +
+                "    \"password\":\"serenity\"\n" +
+                "}";
+        alejandro.attemptsTo(RegisterUserTaskString.withInfo(registerUserInfo));
+
+        alejandro.should(seeThat("el codigo de respuesta", ResponseCode.was(),equalTo(200)));
+
+    }
+
+    @Test
+    public void  registerUserTestWithModel(){
+        Actor alejandro = Actor.named("Alejandro the QA")
+                .whoCan(CallAnApi.at(URL_BASE));
+
+        //Example with Models
+        Register register = new Register();
+        register.setName("morpheus");
+        register.setJob("Leader");
+        register.setEmail("tobias.funke@reqres.in");
+        register.setPassword("serenity");
+
+        alejandro.attemptsTo(RegisterUserTaskModels.withInfo(register));
+
+        alejandro.should(seeThat("el codigo de respuesta", ResponseCode.was(),equalTo(200)));
+
+    }
+
 }
