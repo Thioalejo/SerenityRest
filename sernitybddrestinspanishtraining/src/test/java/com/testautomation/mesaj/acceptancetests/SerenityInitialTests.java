@@ -1,5 +1,6 @@
 package com.testautomation.mesaj.acceptancetests;
 
+import facts.NetflixPlans;
 import models.users.Datum;
 import models.users.Register;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -94,6 +95,16 @@ public class SerenityInitialTests {
         alejandro.attemptsTo(RegisterUserTaskModels.withInfo(register));
 
         alejandro.should(seeThat("el codigo de respuesta", ResponseCode.was(),equalTo(200)));
+
+    }
+
+    @Test
+    public void  facTest(){
+        Actor alejandro = Actor.named("Alejandro the QA")
+                .whoCan(CallAnApi.at(URL_BASE));
+
+        //Alejandro tiene determinado plan de netflix, para ver ciertas series
+       alejandro.has(NetflixPlans.toViewSeries());
 
     }
 
